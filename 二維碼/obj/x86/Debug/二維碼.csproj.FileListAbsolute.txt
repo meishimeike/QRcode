@@ -33,12 +33,12 @@ D:\VS\QRcode\二維碼\bin\Debug\二維碼.exe.config
 D:\VS\QRcode\二維碼\bin\Debug\二維碼.exe
 D:\VS\QRcode\二維碼\bin\Debug\二維碼.pdb
 D:\VS\QRcode\二維碼\bin\Debug\zxing.dll
-D:\VS\QRcode\二維碼\bin\Debug\zxing.pdb
 D:\VS\QRcode\二維碼\bin\Debug\zxing.xml
-D:\VS\QRcode\二維碼\obj\x86\Debug\二維碼.csprojResolveAssemblyReference.cache
 D:\VS\QRcode\二維碼\obj\x86\Debug\二維碼.Cpt.resources
 D:\VS\QRcode\二維碼\obj\x86\Debug\二維碼.MainForm.resources
 D:\VS\QRcode\二維碼\obj\x86\Debug\二維碼.Properties.Resources.resources
-D:\VS\QRcode\二維碼\obj\x86\Debug\二維碼.csproj.GenerateResource.Cache
+D:\VS\QRcode\二維碼\obj\x86\Debug\二維碼.csproj.GenerateResource.cache
+D:\VS\QRcode\二維碼\obj\x86\Debug\二維碼.csproj.CoreCompileInputs.cache
+D:\VS\QRcode\二維碼\obj\x86\Debug\二維碼.csproj.CopyComplete
 D:\VS\QRcode\二維碼\obj\x86\Debug\二維碼.exe
 D:\VS\QRcode\二維碼\obj\x86\Debug\二維碼.pdb

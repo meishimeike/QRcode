@@ -38,7 +38,10 @@ namespace 二維碼
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             pictureBox1.Refresh();
-            Bitmap newBm = new Bitmap(Math.Abs(e.X - mX), Math.Abs(e.Y - mY));
+            int dx = Math.Abs(e.X - mX);
+            int dy = Math.Abs(e.Y - mY);
+            if (dx == 0 || dy == 0) return;
+            Bitmap newBm = new Bitmap(dx, dy);
             Graphics gbm = Graphics.FromImage(newBm);
             gbm.CopyFromScreen(mX, mY, 0, 0, new Size(newBm.Width, newBm.Height));
             MainForm MF = (MainForm)this.Owner;

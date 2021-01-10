@@ -245,7 +245,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "數據文件路径：";
+            this.label1.Text = "数据文件路径：";
             // 
             // button1
             // 
@@ -284,7 +284,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(101, 12);
             this.label2.TabIndex = 4;
-            this.label2.Text = "二維碼保存路径：";
+            this.label2.Text = "二维码保存路径：";
             // 
             // textBox3
             // 
@@ -472,7 +472,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "二維碼";
+            this.Text = "二维码";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
