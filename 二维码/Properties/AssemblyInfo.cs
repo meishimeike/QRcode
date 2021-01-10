@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("二維碼")]
+[assembly: AssemblyTitle("二维码")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("米啊哥")]
-[assembly: AssemblyProduct("二維碼")]
+[assembly: AssemblyProduct("二维码")]
 [assembly: AssemblyCopyright("Copyright © 米啊哥 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -8,8 +8,8 @@
     <ProjectGuid>{8B08374D-5F66-47CB-8CCA-31D59DBE31D8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>二維碼</RootNamespace>
-    <AssemblyName>二維碼</AssemblyName>
+    <RootNamespace>二维码</RootNamespace>
+    <AssemblyName>二维码</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
