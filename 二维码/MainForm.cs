@@ -379,7 +379,7 @@ namespace 二維碼
             pt.ShowDialog();
 
             BarcodeReader reader = new BarcodeReader();
-            Result result = reader.Decode(BitmapResize(bt, 2));
+            Result result = reader.Decode(BitmapResize(this.Sbt, 2));
             if (result == null)
                 textBox5.Text = "读取失败，请重新选取！";
             else
