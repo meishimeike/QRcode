@@ -51,11 +51,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cpt.cs">
+    <Compile Include="CutpicForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cpt.Designer.cs">
-      <DependentUpon>Cpt.cs</DependentUpon>
+    <Compile Include="CutpicForm.Designer.cs">
+      <DependentUpon>CutpicForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -65,8 +65,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Cpt.resx">
-      <DependentUpon>Cpt.cs</DependentUpon>
+    <EmbeddedResource Include="CutpicForm.resx">
+      <DependentUpon>CutpicForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

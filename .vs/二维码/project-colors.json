@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "8b08374d-5f66-47cb-8cca-31d59dbe31d8": {
+      "ProjectGuid": "8b08374d-5f66-47cb-8cca-31d59dbe31d8",
+      "DisplayName": "二维码",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

@@ -15,14 +15,6 @@ namespace 二維碼
 {
     public partial class MainForm : Form
     {
-        private delegate void ProgressBarShow(int i);
-
-        public Bitmap Sbt
-        {
-            set { pictureBox2.Image = value; }
-            get { return (Bitmap)pictureBox2.Image; }
-        }
-
         public MainForm()
         {
             InitializeComponent();     
@@ -73,16 +65,20 @@ namespace 二維碼
                 return;
             }
             button1.Enabled = false;
+            int mode = 0;
             if (radioButton3.Checked)
-                start(textBox2.Text, textBox3.Text, 0);
+            {
+                mode = 0;
+            }
             if (radioButton4.Checked)
-                start(textBox2.Text, textBox3.Text, 1);
-
-            MessageBox.Show("操作完成！");
-            button1.Enabled = true;
+            {
+                mode = 1;
+            }
+            Thread StartThread = new Thread(() => Start(textBox2.Text, textBox3.Text, mode));
+            StartThread.Start();
         }
 
-        private void start(string file,string fold,int mode)
+        private void Start(string file,string fold,int mode)
         {
             try
             {
@@ -129,6 +125,7 @@ namespace 二維碼
                 else
                 {
                     MessageBox.Show("不支持數據格式！");
+                    setButton(true);
                     return;
                 }
 
@@ -154,8 +151,11 @@ namespace 二維碼
             {
                 ShowPro(100);
                 MessageBox.Show("操作失敗," + ex.Message);
+                setButton(true);
+                return;
             }
-
+            MessageBox.Show("操作完成！");
+            setButton(true);
         }
 
         // <summary>  
@@ -182,15 +182,10 @@ namespace 二維碼
             DataSet ds = new DataSet();
             try
             {
-                // 初始化连接，并打开  
                 conn = new OleDbConnection(connStr);
-                conn.Open();
-
-                // 获取数据源的表定义元数据                         
+                conn.Open();                     
                 string SheetName = "";
                 dtSheetName = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new object[] { null, null, null, "TABLE" });
-
-                // 初始化适配器  
                 da = new OleDbDataAdapter();
                 for (int i = 0; i < dtSheetName.Rows.Count; i++)
                 {
@@ -214,7 +209,6 @@ namespace 二維碼
             }
             finally
             {
-                // 关闭连接  
                 if (conn.State == ConnectionState.Open)
                 {
                     conn.Close();
@@ -227,15 +221,30 @@ namespace 二維碼
 
         private void ShowPro(int value)
         {
-            if (InvokeRequired)
+            setProgressBarValue(value);
+            setProgressBarTextValue(value);
+        }
+
+        private void setProgressBarValue(int value)
+        {
+            Invoke(new Action(() =>
             {
-                Invoke(new ProgressBarShow(this.ShowPro), new object[]{value});
-            }
-            else
+                progressBar1.Value = value;
+            }));
+        }
+        private void setButton(bool enable)
+        {
+            Invoke(new Action(() =>
             {
-                this.progressBar1.Value = value;
-                this.label3.Text ="处理进度 "+ value + "%";
-            }
+                button2.Enabled = enable;
+            }));
+        }
+        private void setProgressBarTextValue(int value)
+        {
+            Invoke(new Action(() =>
+            {
+                label3.Text = "处理进度 " + value + "%";
+            }));
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -294,13 +303,10 @@ namespace 二維碼
             BarcodeWriter writer = new BarcodeWriter();
             writer.Format = BarcodeFormat.QR_CODE;
             QrCodeEncodingOptions options = new QrCodeEncodingOptions();
-            options.DisableECI = true;
-            //设置内容编码
+            options.DisableECI = false;
             options.CharacterSet = "UTF-8";
-            //设置二维码的宽度和高度
             options.Width = 400;
             options.Height = 400;
-            //设置二维码的边距,单位不是固定像素
             options.Margin = 1;
             writer.Options = options;
             Bitmap map = writer.Write(text);
@@ -314,7 +320,6 @@ namespace 二維碼
         {
             if (text.Length > 80)
             {
-                //MessageBox.Show("条形码字符长度不能大于80");
                 Bitmap newBitmap = new Bitmap(400,100);
                 Pen Npan = new Pen(Color.Red);          
                 Graphics Ngra= Graphics.FromImage(newBitmap);
@@ -322,9 +327,6 @@ namespace 二維碼
                 return newBitmap; 
             }
             BarcodeWriter writer = new BarcodeWriter();
-            //使用ITF 格式，不能被现在常用的支付宝、微信扫出来
-            //如果想生成可识别的可以使用 CODE_128 格式
-            //writer.Format = BarcodeFormat.ITF;
             writer.Format = BarcodeFormat.CODE_128;
             EncodingOptions options = new EncodingOptions()
             {
@@ -370,21 +372,26 @@ namespace 二維碼
             int w, h;
             w=Screen.PrimaryScreen.Bounds.Width;
             h=Screen.PrimaryScreen.Bounds.Height;
-            Bitmap bt = new Bitmap(w, h);
-            Graphics gpt = Graphics.FromImage(bt);
+            Bitmap backmap = new Bitmap(w, h);
+            Graphics gpt = Graphics.FromImage(backmap);
             gpt.CopyFromScreen(0, 0, 0, 0, new Size(w, h));
-            Cpt pt = new Cpt();
-            pt.Owner = this;
-            pt.PBT = bt;
-            pt.ShowDialog();
+            Cpt cutPic = new Cpt();
+            cutPic.BackImage = backmap;
+            cutPic.GetImage += CutPic_GetImage;
+            cutPic.ShowDialog();
 
             BarcodeReader reader = new BarcodeReader();
-            Result result = reader.Decode(BitmapResize(this.Sbt, 2));
+            Result result = reader.Decode((Bitmap)pictureBox2.Image);
             if (result == null)
                 textBox5.Text = "读取失败，请重新选取！";
             else
                 textBox5.Text = result.Text;
             Show();
+        }
+
+        private void CutPic_GetImage(Image image)
+        {
+            pictureBox2.Image = image;
         }
 
         private void 另存为ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -397,27 +404,5 @@ namespace 二維碼
                     pictureBox2.Image.Save(simage.FileName);
             }
         }
-
-
-        /// <summary>
-        /// 縮放BitMap
-        /// </summary>
-        /// <param name="originImage">源文件</param>
-        /// <param name="times">縮放倍數</param>
-        /// <returns></returns>
-        public static Bitmap BitmapResize(Bitmap originImage, Double times)
-        {
-            int width = Convert.ToInt32(originImage.Width * times);
-            int height = Convert.ToInt32(originImage.Height * times);
-
-            Bitmap resizedbitmap = new Bitmap(width, height);
-            Graphics g = Graphics.FromImage(resizedbitmap);
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            g.Clear(Color.Transparent);
-            g.DrawImage(originImage, new Rectangle(0, 0, width, height), new Rectangle(0, 0, originImage.Width, originImage.Height), GraphicsUnit.Pixel);
-            return resizedbitmap;
-        }
-
     }
 }
